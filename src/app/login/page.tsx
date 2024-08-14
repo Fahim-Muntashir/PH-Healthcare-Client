@@ -1,9 +1,37 @@
+'use client';
 import { Box, Button, Container, Grid, Stack, TextField, Typography } from "@mui/material";
 import Image from "next/image";
 import assets from '@/assets';
 import Link from "next/link";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { userLogin } from "@/services/actions/userLogin";
+
+export type FormValues = {
+    email: string;
+    password: string;
+}
+
 
 const LoginPage = () => {
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm<FormValues>()
+
+
+    const onSubmit: SubmitHandler<FormValues> = async (values) => {
+        console.log(values);
+        try {
+            const res = await userLogin(values)
+            console.log(res);
+        } catch (err: any) {
+            console.log(err.message);
+        }
+    }
+
+
     return (
         <Container>
             <Stack sx={{
@@ -36,7 +64,7 @@ const LoginPage = () => {
 
                     </Stack>
                     <Box>
-                        <form>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <Grid container spacing={3} my={1}>
 
                                 <Grid item md={6}>
@@ -46,7 +74,7 @@ const LoginPage = () => {
                                         variant="outlined"
                                         size="small"
                                         fullWidth={true}
-                                    />
+                                        {...register("email")} />
                                 </Grid>
                                 <Grid item md={6}>
                                     <TextField
@@ -55,6 +83,7 @@ const LoginPage = () => {
                                         variant="outlined"
                                         size="small"
                                         fullWidth={true}
+                                        {...register("password")}
                                     />
                                 </Grid>
 
@@ -63,9 +92,9 @@ const LoginPage = () => {
                             <Typography mb={4} textAlign={"end"} component="p" fontWeight={300}>
                                 Forgot Password?
                             </Typography>
-                            <Button sx={{
+                            <Button type="submit" sx={{
                                 margin: "10px 0"
-                            }} fullWidth>Register</Button>
+                            }} fullWidth>Login</Button>
                             <Typography component="p" fontWeight={300}>
                                 Create An Account? <Link href={"/register"}>Register</Link>
                             </Typography>
