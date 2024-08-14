@@ -25,7 +25,7 @@ const LoginPage = () => {
                         alignItems: "center",
 
                     }}>
-                        <Box><Image src={assets.svgs.logo} width={50} height={50} /></Box>
+                        <Box><Image src={assets.svgs.logo} width={50} height={50} alt="logo" /></Box>
 
                         <Box>
                             <Typography variant="h6">

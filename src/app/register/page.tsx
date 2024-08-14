@@ -1,9 +1,34 @@
+'use client'
 import { Box, Button, Container, Grid, Stack, TextField, Typography } from "@mui/material";
 import Image from "next/image";
 import assets from '@/assets';
 import Link from "next/link";
+import { useForm, SubmitHandler } from "react-hook-form";
+
+
+interface IpatientData {
+    name: string;
+    email: string;
+    contactNumber: string;
+    address: string
+}
+
+interface IpatientRegisterFormData {
+    password: string;
+    patient: IpatientData;
+}
 
 const RegisterPage = () => {
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm<IpatientRegisterFormData>()
+    const onSubmit: SubmitHandler<IpatientRegisterFormData> = (data) => console.log(data)
+
+
     return (
         <Container>
             <Stack sx={{
@@ -26,7 +51,7 @@ const RegisterPage = () => {
                         alignItems: "center",
 
                     }}>
-                        <Box><Image src={assets.svgs.logo} width={50} height={50} /></Box>
+                        <Box><Image src={assets.svgs.logo} width={50} height={50} alt="logo" /></Box>
 
                         <Box>
                             <Typography variant="h6">
@@ -37,14 +62,15 @@ const RegisterPage = () => {
 
                     </Stack>
                     <Box>
-                        <form>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <Grid container spacing={3} my={1}>
                                 <Grid item md={12}>
                                     <TextField
                                         label="Name"
                                         variant="outlined"
                                         size="small"
-                                        fullWidth={true}
+                                        fullWidth={true}                                        {...register("patient.name")}
+
                                     />
                                 </Grid>
                                 <Grid item md={6}>
@@ -53,6 +79,7 @@ const RegisterPage = () => {
                                         type="email"
                                         variant="outlined"
                                         size="small"
+                                        {...register("patient.email")}
                                         fullWidth={true}
                                     />
                                 </Grid>
@@ -62,6 +89,8 @@ const RegisterPage = () => {
                                         type="password"
                                         variant="outlined"
                                         size="small"
+                                        {...register("password")}
+
                                         fullWidth={true}
                                     />
                                 </Grid>
@@ -71,6 +100,8 @@ const RegisterPage = () => {
                                         type="tel"
                                         variant="outlined"
                                         size="small"
+                                        {...register("patient.contactNumber")}
+
                                         fullWidth={true}
                                     />
                                 </Grid><Grid item md={6}>
@@ -79,12 +110,13 @@ const RegisterPage = () => {
                                         type="text"
                                         variant="outlined"
                                         size="small"
+                                        {...register("patient.address")}
                                         fullWidth={true}
                                     />
                                 </Grid>
                             </Grid>
 
-                            <Button sx={{
+                            <Button type="submit" sx={{
                                 margin: "10px 0"
                             }} fullWidth>Register</Button>
                             <Typography component="p" fontWeight={300}>
