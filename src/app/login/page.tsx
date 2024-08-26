@@ -75,7 +75,9 @@ const LoginPage = () => {
                                         label="Email"
                                         type="email"
                                         size="small"
-                                        fullWidth={true}></PHInput>
+                                        fullWidth={true}
+                                        required={true}
+                                    ></PHInput>
                                 </Grid>
                                 <Grid item md={6}>
                                     <PHInput
@@ -84,6 +86,7 @@ const LoginPage = () => {
                                         type="password"
                                         size="small"
                                         fullWidth={true}
+                                        required={true}
                                     />
                                 </Grid>
 
