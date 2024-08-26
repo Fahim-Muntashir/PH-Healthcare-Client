@@ -1,4 +1,3 @@
-import { authKey } from "@/constants/authKey";
 
 
 export const setToLocalStorage = (key: string, token: string) => {

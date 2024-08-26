@@ -39,7 +39,6 @@ const RegisterPage = () => {
         try {
             const res = await registerPatient(data);
 
-
             const result = await userLogin({ password: values.password, email: values.patient.email })
 
             if (result?.data?.accessToken) {
