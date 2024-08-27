@@ -12,10 +12,38 @@ import { userLogin } from "@/services/actions/userLogin";
 import { storeUserInfo } from "@/services/auth.service";
 import PHForm from "@/components/Form/PHForm";
 import PHInput from "@/components/Form/PHInput";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
+
+export const patientValidationSchema = z.object({
+    name: z.string().min(1, "Please enter your Name"),
+    email: z.string().email("plaease enter a valid email address!"),
+    contactNumber: z.string().regex(/^\d{11}$/, "Please provide a valid contact number"),
+    address: z.string().min(1, "Please provide a valid address")
+
+})
+
+export const validationSchema = z.object({
+    password: z.string().min(1, "Please enter your password at least 8 characters!"),
+    patient: patientValidationSchema,
+})
+
+
+export const defaultValues = {
+    password: "",
+    patient: {
+        name: "",
+        email: "",
+        contactNumber: "",
+        address: ""
+
+    }
+}
 
 
 const RegisterPage = () => {
+
     const router = useRouter();
 
     const handleRegister = async (values: FieldValues) => {
@@ -72,7 +100,7 @@ const RegisterPage = () => {
 
                     </Stack>
                     <Box>
-                        <PHForm onSubmit={handleRegister}>
+                        <PHForm resolver={zodResolver(validationSchema)} onSubmit={handleRegister} defaultValues={defaultValues}>
                             <Grid container spacing={3} my={1}>
                                 <Grid item md={12}>
                                     <PHInput required={true}
@@ -84,8 +112,7 @@ const RegisterPage = () => {
                                 </Grid>
                                 <Grid item md={6}>
                                     <PHInput
-                                        label="Email" required={true}
-
+                                        label="Email"
                                         type="email"
                                         name="patient.email"
                                         fullWidth={true}
@@ -95,10 +122,7 @@ const RegisterPage = () => {
                                     <PHInput
                                         label="Password"
                                         type="password"
-                                        required={true}
-
                                         name="password"
-
                                         fullWidth={true}
                                     />
                                 </Grid>
@@ -107,7 +131,6 @@ const RegisterPage = () => {
                                         label="Contact Number"
                                         type="tel"
                                         name="patient.contactNumber"
-                                        required={true}
 
                                         fullWidth={true}
                                     />
@@ -133,7 +156,7 @@ const RegisterPage = () => {
 
                 </Box>
             </Stack>
-        </Container>
+        </Container >
     );
 };
 
