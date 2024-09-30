@@ -1,10 +1,18 @@
+import { Box, Button, Stack, TextField } from '@mui/material';
 import React from 'react';
 
 const reviews = () => {
     return (
-        <div>
-            reviews
-        </div>
+        <Box>
+            <Stack>
+                <Button>
+                    Create Speciality
+                </Button>
+
+                <TextField placeholder='Search Specialist' size='small'></TextField>
+
+            </Stack>
+        </Box>
     );
 };
 

@@ -1,11 +1,26 @@
-import React from 'react';
+'use client'
+import { Box, Button, Stack, TextField } from '@mui/material';
+import React, { useState } from 'react';
+import SpecialistModal from './components/SpecialistModal';
 
-const page = () => {
+const SpecialtiesPage = () => {
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
     return (
-        <div>
-            specialties
-        </div>
+        <Box>
+            <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
+                <Button
+                    onClick={() => setIsModalOpen(true)}>
+                    Create Speciality
+                </Button>
+                <SpecialistModal open={isModalOpen} setOpen={setIsModalOpen}>
+
+                </SpecialistModal>
+                <TextField placeholder='Search Specialist' size='small'></TextField>
+
+            </Stack>
+        </Box>
     );
 };
 
-export default page;
+export default SpecialtiesPage;
