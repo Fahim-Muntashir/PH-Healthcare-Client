@@ -1,34 +1,42 @@
-'use client'
-import { Box, Button, Container, Grid, Stack, TextField, Typography } from "@mui/material";
+"use client";
+import {
+    Box,
+    Button,
+    Container,
+    Grid,
+    Stack,
+    TextField,
+    Typography,
+} from "@mui/material";
 import Image from "next/image";
-import assets from '@/assets';
+import assets from "@/assets";
 import Link from "next/link";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
-import { modifyPayload } from "@/utils/modifyPayloadData";
 import { registerPatient } from "@/services/actions/registerPatient";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { userLogin } from "@/services/actions/userLogin";
+
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { modifyPayload } from "@/utils/modifyPayloadData";
 import { storeUserInfo } from "@/services/auth.service";
 import PHForm from "@/components/Form/PHForm";
 import PHInput from "@/components/Form/PHInput";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-
 
 export const patientValidationSchema = z.object({
-    name: z.string().min(1, "Please enter your Name"),
-    email: z.string().email("plaease enter a valid email address!"),
-    contactNumber: z.string().regex(/^\d{11}$/, "Please provide a valid contact number"),
-    address: z.string().min(1, "Please provide a valid address")
-
-})
+    name: z.string().min(1, "Please enter your name!"),
+    email: z.string().email("Please enter a valid email address!"),
+    contactNumber: z
+        .string()
+        .regex(/^\d{11}$/, "Please provide a valid phone number!"),
+    address: z.string().min(1, "Please enter your address!"),
+});
 
 export const validationSchema = z.object({
-    password: z.string().min(1, "Please enter your password at least 8 characters!"),
+    password: z.string().min(6, "Must be at least 6 characters"),
     patient: patientValidationSchema,
-})
-
+});
 
 export const defaultValues = {
     password: "",
@@ -36,127 +44,129 @@ export const defaultValues = {
         name: "",
         email: "",
         contactNumber: "",
-        address: ""
-
-    }
-}
-
+        address: "",
+    },
+};
 
 const RegisterPage = () => {
-
     const router = useRouter();
 
     const handleRegister = async (values: FieldValues) => {
         const data = modifyPayload(values);
+        // console.log(data);
         try {
             const res = await registerPatient(data);
-
-            const result = await userLogin({ password: values.password, email: values.patient.email })
-
-            if (result?.data?.accessToken) {
-                toast.success(res.message)
-
-                storeUserInfo({ accessToken: result?.data?.accessToken })
-
-                router.push("/")
+            // console.log(res);
+            if (res?.data?.id) {
+                toast.success(res?.message);
+                const result = await userLogin({
+                    password: values.password,
+                    email: values.patient.email,
+                });
+                if (result?.data?.accessToken) {
+                    storeUserInfo({ accessToken: result?.data?.accessToken });
+                    router.push("/dashboard");
+                }
             }
-
         } catch (err: any) {
-            console.log(err.message);
+            console.error(err.message);
         }
-    }
-
+    };
 
     return (
         <Container>
-            <Stack sx={{
-                height: "100vh",
-                justifyContent: "center",
-                alignItems: "center",
-
-            }}>
-                <Box sx={{
-                    maxWidth: 600,
-                    width: "100%",
-                    boxShadow: 1,
-                    borderRadius: 1,
-                    padding: 4,
-                    textAlign: "center"
-                }}>
-
-                    <Stack sx={{
-                        justifyContent: "center",
-                        alignItems: "center",
-
-                    }}>
-                        <Box><Image src={assets.svgs.logo} width={50} height={50} alt="logo" /></Box>
-
+            <Stack
+                sx={{
+                    height: "100vh",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+            >
+                <Box
+                    sx={{
+                        maxWidth: 600,
+                        width: "100%",
+                        boxShadow: 1,
+                        borderRadius: 1,
+                        p: 4,
+                        textAlign: "center",
+                    }}
+                >
+                    <Stack
+                        sx={{
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
                         <Box>
-                            <Typography variant="h6">
+                            <Image src={assets.svgs.logo} width={50} height={50} alt="logo" />
+                        </Box>
+                        <Box>
+                            <Typography variant="h6" fontWeight={600}>
                                 Patient Register
                             </Typography>
                         </Box>
-
-
                     </Stack>
+
                     <Box>
-                        <PHForm resolver={zodResolver(validationSchema)} onSubmit={handleRegister} defaultValues={defaultValues}>
-                            <Grid container spacing={3} my={1}>
+                        <PHForm
+                            onSubmit={handleRegister}
+                            resolver={zodResolver(validationSchema)}
+                            defaultValues={defaultValues}
+                        >
+                            <Grid container spacing={2} my={1}>
                                 <Grid item md={12}>
-                                    <PHInput required={true}
-
-                                        label="Name"
-                                        fullWidth={true} name="patient.name"
-
-                                    />
+                                    <PHInput label="Name" fullWidth={true} name="patient.name" />
                                 </Grid>
                                 <Grid item md={6}>
                                     <PHInput
                                         label="Email"
                                         type="email"
-                                        name="patient.email"
                                         fullWidth={true}
+                                        name="patient.email"
                                     />
                                 </Grid>
                                 <Grid item md={6}>
                                     <PHInput
                                         label="Password"
                                         type="password"
-                                        name="password"
                                         fullWidth={true}
+                                        name="password"
                                     />
                                 </Grid>
                                 <Grid item md={6}>
-                                    <TextField
+                                    <PHInput
                                         label="Contact Number"
                                         type="tel"
+                                        fullWidth={true}
                                         name="patient.contactNumber"
-
-                                        fullWidth={true}
                                     />
-                                </Grid><Grid item md={6}>
-                                    <PHInput required={true}
-
+                                </Grid>
+                                <Grid item md={6}>
+                                    <PHInput
                                         label="Address"
-                                        type="text"
-                                        name="patient.address"
                                         fullWidth={true}
+                                        name="patient.address"
                                     />
                                 </Grid>
                             </Grid>
-
-                            <Button type="submit" sx={{
-                                margin: "10px 0"
-                            }} fullWidth>Register</Button>
+                            <Button
+                                sx={{
+                                    margin: "10px 0px",
+                                }}
+                                fullWidth={true}
+                                type="submit"
+                            >
+                                Register
+                            </Button>
                             <Typography component="p" fontWeight={300}>
-                                Do you already have an account? <Link href={"/login"}>Login</Link>
+                                Do you already have an account? <Link href="/login">Login</Link>
                             </Typography>
                         </PHForm>
                     </Box>
-
                 </Box>
             </Stack>
-        </Container >
+        </Container>
     );
 };
 

@@ -49,7 +49,7 @@ export const drawerItem =(role:UserRole):DrawerItem[]=> {
                     icon: CalendarMonthIcon,
                 }, {
                     title:"Reviews",
-                    path: `${role}/doctors`,
+                    path: `${role}/reviews`,
                     icon: ReviewsIcon,
             }
             );
