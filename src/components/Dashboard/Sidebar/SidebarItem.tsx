@@ -4,6 +4,7 @@ import React from 'react';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { DrawerItem } from '@/types';
+import { usePathname } from 'next/navigation';
 
 type IProps = {
     item: DrawerItem
@@ -11,13 +12,29 @@ type IProps = {
 }
 
 
-const SidebarItem = ({ item, index }: IProps) => {
+const SidebarItem = ({ item }: IProps) => {
+
+    const linkPath = `/dashboard/${item.path}`
+
+    const pathname = usePathname();
+
+
     return (
-        <Link href={"/"}>
-            <ListItem disablePadding>
+        <Link href={linkPath}>
+            <ListItem disablePadding sx={{
+                ...(pathname === linkPath ? {
+                    borderRight: "3px solid #1586FD",
+                    "& svg": {
+                        color: "#1586FD"
+                    }
+                } : {}),
+                mb: 1
+            }}>
                 <ListItemButton>
                     <ListItemIcon>
-                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                        {
+                            item.icon && <item.icon />
+                        }
                     </ListItemIcon>
                     <ListItemText primary={item.title} />
                 </ListItemButton>

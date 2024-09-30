@@ -5,7 +5,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import GroupsIcon from '@mui/icons-material/Groups';
 import TryIcon from '@mui/icons-material/Try';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import ReviewsIcon from '@mui/icons-material/Reviews';
+import ReviewsIcon from '@mui/icons-material/Reviews';import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 export const drawerItem =(role:UserRole):DrawerItem[]=> {
     const roleMenus: DrawerItem[] = [];
     
@@ -36,7 +36,7 @@ export const drawerItem =(role:UserRole):DrawerItem[]=> {
             }, {
                 title:"Doctors",
                 path: `${role}/doctors`,
-                icon: TryIcon,
+                icon: LocalHospitalIcon,
             },
             {
                 title:"Schedules",
