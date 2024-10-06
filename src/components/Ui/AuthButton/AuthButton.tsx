@@ -4,24 +4,24 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const AuthButton = () => {
-    const userInfo = getUserInfo();
+  const userInfo = getUserInfo();
 
-    const router = useRouter()
+  const router = useRouter()
 
-    const handleLogout = () => {
-        removeUser();
-        router.refresh()
-    }
+  const handleLogout = () => {
+    removeUser();
+    router.refresh()
+  }
 
-    return (
-        <>
-            {userInfo?.userId ?
+  return (
+    <>
+      {userInfo?.userId ?
 
-                (< Button color="error" onClick={handleLogout}>Logout</Button>
-                ) :
-                (< Button component={Link} href="/login">Login</Button>)}
-        </>
-    );
+        (< Button color="error" onClick={handleLogout}>Logout</Button>
+        ) :
+        (< Button component={Link} href="/login">Login</Button>)}
+    </>
+  );
 };
 
 export default AuthButton;

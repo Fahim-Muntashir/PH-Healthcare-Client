@@ -8,30 +8,30 @@ import { useRouter } from "next/navigation";
 
 const Navbar = () => {
 
-    const AuthButton = dynamic(() => import('@/components/Ui/AuthButton/AuthButton'),
-        {
-            ssr: false
-        })
+  const AuthButton = dynamic(() => import('@/components/Ui/AuthButton/AuthButton'),
+    {
+      ssr: false
+    })
 
-    return (
-        <Container>
-            <Stack alignItems="center" py={2} direction="row"
-                justifyContent="space-between">
-                <Typography variant="h5" component="h1" fontWeight={600}>
-                    P<Box component="span" color="primary.main">H</Box> Health Care
-                </Typography>
+  return (
+    <Container>
+      <Stack alignItems="center" py={2} direction="row"
+        justifyContent="space-between">
+        <Typography variant="h5" component="h1" fontWeight={600}>
+          P<Box component="span" color="primary.main">H</Box> Health Care
+        </Typography>
 
-                <Stack direction="row" gap={4} justifyContent="space-between">
-                    <Typography component={Link} href="/login">Consultation</Typography>
-                    <Typography component={Link} href="/login">Health Plans</Typography>
-                    <Typography component={Link} href="/login">Medicine</Typography>
-                    <Typography component={Link} href="/login">Diagonostics</Typography>
-                    <Typography component={Link} href="/login">NGOs</Typography>
-                </Stack>
-                <AuthButton />
-            </Stack>
-        </Container >
-    );
+        <Stack direction="row" gap={4} justifyContent="space-between">
+          <Typography component={Link} href="/login">Consultation</Typography>
+          <Typography component={Link} href="/login">Health Plans</Typography>
+          <Typography component={Link} href="/login">Medicine</Typography>
+          <Typography component={Link} href="/login">Diagonostics</Typography>
+          <Typography component={Link} href="/login">NGOs</Typography>
+        </Stack>
+        <AuthButton />
+      </Stack>
+    </Container >
+  );
 };
 
 export default Navbar;

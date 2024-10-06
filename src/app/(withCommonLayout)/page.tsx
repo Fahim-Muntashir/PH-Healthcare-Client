@@ -1,7 +1,8 @@
-import HeroSection from "@/components/Ui/HomePage/HeroSection/HeroSection";
-import Specialist from "@/components/Ui/HomePage/Specialist/Specialist";
-import TopRatedDoctors from "@/components/Ui/HomePage/TopRatedDoctors/TopRatedDoctors";
-import WhyUs from "@/components/Ui/HomePage/WhyUs/WhyUs";
+import HeroSection from "@/components/UI/HomePage/HeroSection/HeroSection";
+import Specialist from "@/components/UI/HomePage/Specialist/Specialist";
+import TopRatedDoctors from "@/components/UI/HomePage/TopRatedDoctors/TopRatedDoctors";
+import WhyUs from "@/components/UI/HomePage/WhyUs/WhyUs";
+
 
 const HomePage = () => {
   return (
