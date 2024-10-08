@@ -80,6 +80,10 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
           title: "Appointments",
           path: `${role}/appointment`,
           icon: CalendarMonthIcon,
+        }, {
+          title: "Profile",
+          path: `${role}/appointment`,
+          icon: CalendarMonthIcon,
         }
       );
       break;

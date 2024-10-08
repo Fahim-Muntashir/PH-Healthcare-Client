@@ -5,10 +5,22 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import GroupsIcon from '@mui/icons-material/Groups';
 import TryIcon from '@mui/icons-material/Try';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import ReviewsIcon from '@mui/icons-material/Reviews';import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import ReviewsIcon from '@mui/icons-material/Reviews'; import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
+
+
+
 export const drawerItem =(role:UserRole):DrawerItem[]=> {
     const roleMenus: DrawerItem[] = [];
-    
+    const defaultMenus = [
+        {
+            title: "profile ",
+            path: `${role}/profile`,
+            icon: AccountCircleIcon ,
+          }
+    ]
     switch (role) {
         case USER_ROLE.SUPER_ADMIN:
             roleMenus.push({
@@ -51,7 +63,7 @@ export const drawerItem =(role:UserRole):DrawerItem[]=> {
                     title:"Reviews",
                     path: `${role}/reviews`,
                     icon: ReviewsIcon,
-            }
+            },
             );
 
             break;
@@ -72,7 +84,7 @@ export const drawerItem =(role:UserRole):DrawerItem[]=> {
                         title:"Appoinments",
                         path: `${role}/appoinments`,
                         icon: CalendarMonthIcon,
-                    }, 
+                    },
                 );
     
                 break;
@@ -92,7 +104,11 @@ export const drawerItem =(role:UserRole):DrawerItem[]=> {
                             title:"Payment History",
                             path: `${role}/payment-history`,
                             icon: CalendarMonthIcon,
-                        }, 
+                        },  {
+                            title: "profile ",
+                            path: `${role}/profile`,
+                            icon: AccountCircleIcon ,
+                          }
                     );
         
                   default:    
@@ -102,5 +118,5 @@ export const drawerItem =(role:UserRole):DrawerItem[]=> {
     }
 
 
-    return [...roleMenus];
+    return [...roleMenus,...defaultMenus];
 }
