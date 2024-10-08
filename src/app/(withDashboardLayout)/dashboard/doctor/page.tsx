@@ -2,7 +2,7 @@
 const DoctorPage = () => {
     return (
         <div>
-            Patinet
+            Patinet   
         </div>
     );
 };

@@ -4,7 +4,7 @@ import { isLoggedIn } from '@/services/auth.service';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+const DashboardLayout = ({ children }: { children: React.ReactNode }  ) => {
 
     const router = useRouter()
 
