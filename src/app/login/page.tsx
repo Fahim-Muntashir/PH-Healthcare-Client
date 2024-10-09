@@ -34,7 +34,7 @@ const LoginPage = () => {
 
                 storeUserInfo({ accessToken: res?.data?.accessToken })
 
-                router.push("/dashboard")
+                // router.push("/dashboard")
             } else {
                 setError(res.message)
             }

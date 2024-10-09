@@ -8,7 +8,7 @@ import { dateFormatter } from '@/utils/dateFormatter';
 import { ISchedule } from '@/types/schedule';
 import dayjs from 'dayjs';
 import { useGetAllDoctorSchedulesQuery } from '@/redux/api/doctorScheduleApi';
-
+import AddAlarmIcon from '@mui/icons-material/AddAlarm';
 const DoctorSchedulesPage = () => {
 
     const query: Record<string, any> = {};
@@ -80,7 +80,7 @@ const DoctorSchedulesPage = () => {
 
     return (
         <Box>
-            <Button onClick={() => setIsModalOpen(true)}>
+            <Button onClick={() => setIsModalOpen(true)} endIcon={<AddAlarmIcon></AddAlarmIcon>} sx={{ mt: 3 }}>
                 Create Doctor Schedule
             </Button>
             <DoctorScheduleModal open={isModalOpen} setOpen={setIsModalOpen} />
@@ -92,8 +92,10 @@ const DoctorSchedulesPage = () => {
                         <DataGrid rows={allSchedule ?? []} columns={columns} hideFooterPagination
                             slots={{
                                 footer: () => {
-                                    return <Box>
-                                        <Pagination count={pageCount} page={page} onChange={handleChange}></Pagination>
+                                    return <Box sx={{ mb: 2, display: "flex", justifyContent: "center" }}>
+                                        <Pagination
+                                            color="primary"
+                                            count={pageCount} page={page} onChange={handleChange}></Pagination>
                                     </Box>
                                 }
                             }}
