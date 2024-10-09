@@ -4,6 +4,7 @@ import { OverridableComponent } from "@mui/material/OverridableComponent";
 
 export type IMeta = {
     page: number;
+    total?:number,
     limit: number;
     totalCount: number;
 }
