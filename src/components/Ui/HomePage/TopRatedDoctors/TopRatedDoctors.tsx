@@ -2,6 +2,7 @@ import { Box, Button, Card, CardActions, CardContent, CardMedia, Container, Grid
 import Image from 'next/image';
 import React from 'react';
 import PlaceIcon from '@mui/icons-material/Place';
+import Link from 'next/link';
 
 const TopRatedDoctors = async () => {
 
@@ -37,7 +38,15 @@ const TopRatedDoctors = async () => {
             doctors.map((doctor: any) => (
               <Grid item key={doctor.id} md={4}>
                 <Card sx={{}}>
-                  <Box>
+                  <Box sx={{
+                    width: "100%", height: 300,
+                    '& img': {
+                      width: "100%",
+                      height: "100%",
+                      overflow: "hidden",
+                      objectFit: "cover"
+                    }
+                  }}>
                     {doctor?.profilePhoto ? (
                       <Image
                         src={doctor.profilePhoto}
@@ -90,7 +99,10 @@ const TopRatedDoctors = async () => {
           <Button variant='outlined' sx={{
             marginTop: "20px",
             margin: "0 auto",
-          }}> View All</Button>
+          }}
+            component={Link}
+            href='/doctors'
+          > View All</Button>
         </Box>
       </Container>
     </Box >
