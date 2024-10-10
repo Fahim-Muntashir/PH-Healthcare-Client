@@ -18,7 +18,9 @@ export const userLogin = async (data: FieldValues) => {
     {
 
         setAccessToken(userInfo.data.accessToken,{
-        redirect: '/dashboard',}
+            redirect: '/dashboard',
+        
+        }
             
         )     
     }

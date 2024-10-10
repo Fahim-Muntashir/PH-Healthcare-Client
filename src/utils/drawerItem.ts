@@ -7,7 +7,7 @@ import TryIcon from '@mui/icons-material/Try';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ReviewsIcon from '@mui/icons-material/Reviews'; import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';import VpnKeyOffIcon from '@mui/icons-material/VpnKeyOff';
 
 
 
@@ -16,9 +16,13 @@ export const drawerItem =(role:UserRole):DrawerItem[]=> {
     const roleMenus: DrawerItem[] = [];
     const defaultMenus = [
         {
-            title: "profile ",
+            title: "Profile ",
             path: `${role}/profile`,
             icon: AccountCircleIcon ,
+        }, {
+            title: "Change Password ",
+            path: `change-password`,
+            icon: VpnKeyOffIcon ,
           }
     ]
     switch (role) {
