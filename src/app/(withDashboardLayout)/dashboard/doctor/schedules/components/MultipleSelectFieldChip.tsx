@@ -19,9 +19,6 @@ const MenuProps = {
     },
 };
 
-
-
-
 export function getTimeIn12HourFormat(dateTimeString: string): string {
     const date: Date = new Date(dateTimeString);
     const hours: number = date.getHours();
@@ -32,8 +29,6 @@ export function getTimeIn12HourFormat(dateTimeString: string): string {
         minutes < 10 ? '0' + minutes : minutes.toString();
     return `${formattedHours}:${formattedMinutes} ${ampm}`;
 }
-
-
 
 const names = [
     'Oliver Hansen',
@@ -48,63 +43,68 @@ const names = [
     'Kelly Snyder',
 ];
 
-function getStyles(name: string, selectedScheduleIds: readonly string[], theme: Theme) {
+function getStyles(name: string, personName: readonly string[], theme: Theme) {
     return {
-        fontWeight: selectedScheduleIds.includes(name)
-            ? theme.typography.fontWeightMedium
-            : theme.typography.fontWeightRegular,
+        fontWeight:
+            personName.indexOf(name) === -1
+                ? theme.typography.fontWeightRegular
+                : theme.typography.fontWeightMedium,
     };
 }
 
-export default function MultipleSelectChip({ schedules, selectedScheduleIds, setSelectedScheduleIds }: any) {
+export default function MultipleSelectFieldChip({
+    schedules,
+    selectedScheduleIds,
+    setSelectedScheduleIds,
+}: any) {
     const theme = useTheme();
     // const [personName, setPersonName] = React.useState<string[]>([]);
 
-    const handleChange = (event: SelectChangeEvent<typeof selectedScheduleIds>) => {
+    const handleChange = (
+        event: SelectChangeEvent<typeof selectedScheduleIds>
+    ) => {
         const {
             target: { value },
         } = event;
         setSelectedScheduleIds(
             // On autofill we get a stringified value.
-            typeof value === 'string' ? value.split(',') : value,
+            typeof value === 'string' ? value.split(',') : value
         );
     };
 
     return (
         <div>
-            <FormControl sx={{ m: 1, width: 300 }}>
-                <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
+            <FormControl sx={{ width: 300 }}>
+                <InputLabel id='demo-multiple-chip-label'>Chip</InputLabel>
                 <Select
-                    labelId="demo-multiple-chip-label"
-                    id="demo-multiple-chip"
+                    labelId='demo-multiple-chip-label'
+                    id='demo-multiple-chip'
                     multiple
                     value={selectedScheduleIds}
                     onChange={handleChange}
-                    input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                    input={<OutlinedInput id='select-multiple-chip' label='Chip' />}
                     renderValue={(selected) => {
-
-
-
                         return (
                             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                                 {selected.map((value: any) => {
-                                    const selectedSchedule = schedules.find((schedule: any) => schedule.id === value);
+                                    const selectedSchedule = schedules.find(
+                                        (schedule: any) => schedule.id === value
+                                    );
 
                                     if (!selectedSchedule) return null;
 
+                                    const formattedTimeSlot = `${getTimeIn12HourFormat(
+                                        selectedSchedule.startDate
+                                    )} - ${getTimeIn12HourFormat(
+                                        selectedSchedule.endDate
+                                    )}`;
 
-                                    const formattedTimeSlot = `
-                                        ${getTimeIn12HourFormat(selectedSchedule.startDate)}
-                              -
-                                                              ${getTimeIn12HourFormat(selectedSchedule.endDate)}
-        
-                                        
-                              `
-
-                                    return <Chip key={value} label={formattedTimeSlot} />
+                                    return (
+                                        <Chip key={value} label={formattedTimeSlot} />
+                                    );
                                 })}
                             </Box>
-                        )
+                        );
                     }}
                     MenuProps={MenuProps}
                 >
@@ -114,14 +114,9 @@ export default function MultipleSelectChip({ schedules, selectedScheduleIds, set
                             value={schedule.id}
                             style={getStyles(schedule.id, selectedScheduleIds, theme)}
                         >
-                            {`
-                                ${getTimeIn12HourFormat(schedule.startDate)}
-                      -
-                                                      ${getTimeIn12HourFormat(schedule.endDate)}
-
-                                
-                      `}
-
+                            {`${getTimeIn12HourFormat(
+                                schedule.startDate
+                            )} - ${getTimeIn12HourFormat(schedule.endDate)}`}
                         </MenuItem>
                     ))}
                 </Select>

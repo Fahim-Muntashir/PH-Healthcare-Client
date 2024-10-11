@@ -29,7 +29,7 @@ const page = async ({ searchParams }: PropTypes) => {
 
             <DashedLine />
 
-            <ScrollCategory></ScrollCategory>
+            <ScrollCategory specialties={searchParams.specialties}></ScrollCategory>
 
             <Box sx={{ mt: 2, p: 5, bgcolor: "secondary.light" }}>
 

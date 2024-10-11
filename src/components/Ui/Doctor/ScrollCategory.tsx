@@ -7,9 +7,8 @@ import Box from '@mui/material/Box';
 import { useRouter } from 'next/navigation';
 
 
-const ScrollCategory = () => {
-    const [value, setValue] = React.useState('');
-
+const ScrollCategory = ({ specialties }: { specialties: string }) => {
+    const [value, setValue] = React.useState(specialties || '');
 
     const router = useRouter();
 
