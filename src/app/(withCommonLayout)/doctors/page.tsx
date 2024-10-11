@@ -3,6 +3,7 @@ import React from 'react';
 import { Doctor } from '@/types/doctor/'
 import DoctorCard from '@/components/UI/Doctor/DoctorCard';
 import DashedLine from '@/components/UI/Doctor/DoctorLine';
+import ScrollCategory from '@/components/UI/Doctor/ScrollCategory';
 
 const page = async () => {
     const res = await fetch('http://localhost:5000/api/v1/doctor');
@@ -13,7 +14,11 @@ const page = async () => {
 
     return (
         <Container>
+
+
             <DashedLine />
+
+            <ScrollCategory></ScrollCategory>
 
             <Box sx={{ mt: 2, p: 5, bgcolor: "secondary.light" }}>
 
