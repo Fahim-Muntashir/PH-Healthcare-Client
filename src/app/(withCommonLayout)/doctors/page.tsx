@@ -5,12 +5,23 @@ import DoctorCard from '@/components/UI/Doctor/DoctorCard';
 import DashedLine from '@/components/UI/Doctor/DoctorLine';
 import ScrollCategory from '@/components/UI/Doctor/ScrollCategory';
 
-const page = async () => {
-    const res = await fetch('http://localhost:5000/api/v1/doctor');
+interface PropTypes {
+    searchParams: { specialties: string }
+}
+
+const page = async ({ searchParams }: PropTypes) => {
+    let res;
+
+    if (searchParams?.specialties) {
+        res = await fetch(`http://localhost:5000/api/v1/doctor?specialties=${searchParams?.specialties}`);
+    } else {
+        res = await fetch('http://localhost:5000/api/v1/doctor');
+    }
+
 
     const { data } = await res.json();
 
-    console.log(data);
+    console.log(searchParams);
 
     return (
         <Container>
